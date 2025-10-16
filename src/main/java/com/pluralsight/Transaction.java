@@ -18,7 +18,6 @@ public class Transaction {
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
-
     }
     //getters and setters- Jeni had us use the generator
 

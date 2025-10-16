@@ -12,15 +12,15 @@ import java.util.Scanner;
 public class Capstone1 {
     static Scanner scanner = new Scanner(System.in);
 
-// starts the program by showing the main menu
+    // starts the program by showing the main menu
     public static void main(String[] args) {
         mainMenu();
     }
     // scanner for user input
 
-// shows users home screen options until they press X to exit
+    // shows users home screen options until they press X to exit
     public static void mainMenu() {
-       // declares a variable to hold what the user types
+        // declares a variable to hold what the user types
         String userInput;
 // prints the home menu so the user can choose what they want to do
         do {
@@ -32,7 +32,7 @@ public class Capstone1 {
             System.out.println("Please enter character for action");
             // reads what the user types in
             userInput = scanner.nextLine();
-                // decides what to do based on the users choice
+            // decides what to do based on the users choice
             switch (userInput) {
                 // if user clicks "D" call the addDeposit() method
                 case "D":
@@ -45,10 +45,10 @@ public class Capstone1 {
                 case "L":
                     ledgerMenu();
                     break;
-                    // if user types "X" break out of the loop and end program
+                // if user types "X" break out of the loop and end program
                 case "X":
                     break;
-                    // if user typed something else, show an error message
+                // if user typed something else, show an error message
                 default:
                     System.out.println("Invalid input. Try again.");
             }
@@ -56,7 +56,7 @@ public class Capstone1 {
         } while (userInput.equals("X"));
     }
 
-        // starts new method that handles adding deposits
+    // starts new method that handles adding deposits
     private static void addDeposit() {
         // asks for date,get input, and converts to LocalDate type
         System.out.println("Enter transaction date: YYYY-MM-DD");
@@ -137,21 +137,22 @@ public class Capstone1 {
         do {
             System.out.println("LEDGER MENU");
             System.out.println("A- All Entries");
-//            System.out.println("D- Deposits");
-//            System.out.println("P- Payments");
+            System.out.println("D- Deposits");
+            System.out.println("P- Payments");
 //            System.out.println("R- Reports");
             System.out.println("H- Homepage");
             userInput = scanner.nextLine();
+
             switch (userInput) {
                 case "A":
                     allEntries(transactionArrayList);
                     break;
-//                case "D":
-//                    displayDeposits();
-//                    break;
-//                case "P":
-//                    negativeEntries();
-//                    break;
+                case "D":
+                    displayDeposits(transactionArrayList);
+                    break;
+                case "P":
+                    displayPayments(transactionArrayList);
+                    break;
 //                case "R":
 //                    allReports();
 //                    break;
@@ -160,6 +161,7 @@ public class Capstone1 {
             }
         } while (userInput.equals("H"));
     }
+
 
     public static ArrayList<Transaction> readCsv() {
         ArrayList<Transaction> transactionArrayList = null;
@@ -195,12 +197,29 @@ public class Capstone1 {
         return transactionArrayList;
     }
 
-    public static void allEntries(ArrayList<Transaction> transactionList){
-       for(var i = 0; i< transactionList.size(); i++){
-           System.out.println(transactionList.get(i).toString());
-       }
-
+    public static void allEntries(ArrayList<Transaction> transactionList) {
+        for (int i = 0; i < transactionList.size(); i++) {
+            System.out.println(transactionList.get(i).toString());
+        }
     }
+
+    public static void displayDeposits(ArrayList<Transaction> transactionList) {
+
+        for (Transaction currentTransaction : transactionList) {
+            if (currentTransaction.getAmount() > 0) {
+                System.out.println(currentTransaction);
+            }
+        }
+    }
+
+    public static void displayPayments(ArrayList<Transaction> transactionList) {
+        for (Transaction currentTransaction : transactionList) {
+            if (currentTransaction.getAmount() < 0) {
+                System.out.println(currentTransaction);
+            }
+        }
+    }
+
 
 //        } while (userInput.equals("X"));
 //    }
@@ -222,7 +241,4 @@ public class Capstone1 {
     // ledger menu: a)all: display all transactions screen(newest first)
     //
 
-    private static void exitApplication() {
-
-    }
 }
