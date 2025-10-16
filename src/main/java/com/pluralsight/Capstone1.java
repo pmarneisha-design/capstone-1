@@ -53,7 +53,7 @@ public class Capstone1 {
                     System.out.println("Invalid input. Try again.");
             }
             // the loop continues as long as the user hasn't typed "X"
-        } while (userInput.equals("X"));
+        } while (!userInput.equals("X"));
     }
 
     // starts new method that handles adding deposits
@@ -80,7 +80,7 @@ public class Capstone1 {
 
 
 //date|time|description|vendor|amount
-        String ledgerEntry = date + "\\|" + time + "\\|" + descriptionString + "\\|" + vendorString + "\\|" + amount;
+        String ledgerEntry = date + "|" + time + "|" + descriptionString + "|" + vendorString + "|" + amount;
         String fileName = "src/main/resources/transactions.csv";
 
 // fileWriter writes stream of characters to file
@@ -220,9 +220,6 @@ public class Capstone1 {
         }
     }
 
-
-//        } while (userInput.equals("X"));
-//    }
 
 
 //creating CLI financial transaction app to track all financial transactions
