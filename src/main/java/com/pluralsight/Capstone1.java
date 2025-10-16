@@ -12,16 +12,17 @@ import java.util.Scanner;
 public class Capstone1 {
     static Scanner scanner = new Scanner(System.in);
 
-
+// starts the program by showing the main menu
     public static void main(String[] args) {
         mainMenu();
     }
     // scanner for user input
 
-
+// shows users home screen options until they press X to exit
     public static void mainMenu() {
+       // declares a variable to hold what the user types
         String userInput;
-
+// prints the home menu so the user can choose what they want to do
         do {
             System.out.println("HOME SCREEN");
             System.out.println("D- Add Deposit");
@@ -29,11 +30,14 @@ public class Capstone1 {
             System.out.println("L- Ledger");
             System.out.println("X- Exit");
             System.out.println("Please enter character for action");
+            // reads what the user types in
             userInput = scanner.nextLine();
-
+                // decides what to do based on the users choice
             switch (userInput) {
+                // if user clicks "D" call the addDeposit() method
                 case "D":
                     addDeposit();
+                    // break means to stop checking the other cases
                     break;
                 case "P":
                     makePayment();
@@ -41,31 +45,35 @@ public class Capstone1 {
                 case "L":
                     ledgerMenu();
                     break;
+                    // if user types "X" break out of the loop and end program
                 case "X":
                     break;
+                    // if user typed something else, show an error message
                 default:
                     System.out.println("Invalid input. Try again.");
             }
+            // the loop continues as long as the user hasn't typed "X"
         } while (userInput.equals("X"));
     }
 
-    // converts string into an amount and prompts user for deposit
+        // starts new method that handles adding deposits
     private static void addDeposit() {
-        // prompt user for date
+        // asks for date,get input, and converts to LocalDate type
         System.out.println("Enter transaction date: YYYY-MM-DD");
         String dateString = scanner.nextLine();
+        // converts string into an amount
         LocalDate date = LocalDate.parse(dateString);
-// prompt user for time
+        // asks for time and converts to LocalTime type
         System.out.println("Enter transaction time: HH:MM ");
         String timeString = scanner.nextLine();
         LocalTime time = LocalTime.parse(timeString);
-// prompt user for description
+// ask what the transaction was for
         System.out.println("Enter transaction description");
         String descriptionString = scanner.nextLine();
-// prompts user for vendor name
+// asks for the name of the vendor or source
         System.out.println("Enter vendor name");
         String vendorString = scanner.nextLine();
-        // prompts user to enter transaction amount
+        // asks for the amount,reads it as a string, and converts it to a decimal
         System.out.println("Enter transaction amount");
         String amountString = scanner.nextLine();
         double amount = Double.parseDouble(amountString);
