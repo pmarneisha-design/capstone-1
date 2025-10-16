@@ -1,14 +1,15 @@
 package com.pluralsight;
-import java.io.BufferedWriter;
-import java.io.File;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Capstone_1 {
+public class Capstone1 {
     static Scanner scanner = new Scanner(System.in);
 
 
@@ -36,11 +37,14 @@ public class Capstone_1 {
                     break;
                 case "P":
                     makePayment();
-               case "L":
-                   ledgerMenu();
+                    break;
+                case "L":
+                    ledgerMenu();
+                    break;
                 case "X":
                     break;
-//                default -> System.out.println("Invalid input. Try again.");
+                default:
+                    System.out.println("Invalid input. Try again.");
             }
         } while (userInput.equals("X"));
     }
@@ -72,16 +76,14 @@ public class Capstone_1 {
         String fileName = "src/main/resources/transactions.csv";
 
 // fileWriter writes stream of characters to file
-    // open files
-   try (FileWriter fileWriter = new FileWriter(fileName,true)){
-       fileWriter.write(ledgerEntry + "\n");
-       System.out.println("Transaction completed!");
+        // open files
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            fileWriter.write(ledgerEntry + "\n");
+            System.out.println("Transaction completed!");
 
-} catch (IOException error){
-        System.out.println("Error saving transaction");
-//
-
-}
+        } catch (IOException error) {
+            System.out.println("Error saving transaction");
+        }
     }
 
     // date, time, description, vendor, amount
@@ -122,16 +124,78 @@ public class Capstone_1 {
     }
 
     private static void ledgerMenu() {
-        ledgerMenu();
-        System.out.println("LEDGER MENU");
-        System.out.println("A- All Entries");
-        System.out.println();
+        String userInput;
+        ArrayList<Transaction> transactionArrayList = readCsv();
+        do {
+            System.out.println("LEDGER MENU");
+            System.out.println("A- All Entries");
+//            System.out.println("D- Deposits");
+//            System.out.println("P- Payments");
+//            System.out.println("R- Reports");
+            System.out.println("H- Homepage");
+            userInput = scanner.nextLine();
+            switch (userInput) {
+                case "A":
+                    allEntries(transactionArrayList);
+                    break;
+//                case "D":
+//                    displayDeposits();
+//                    break;
+//                case "P":
+//                    negativeEntries();
+//                    break;
+//                case "R":
+//                    allReports();
+//                    break;
+                case "H":
+                    break;
+            }
+        } while (userInput.equals("H"));
     }
 
+    public static ArrayList<Transaction> readCsv() {
+        ArrayList<Transaction> transactionArrayList = null;
+        try {
+            //   create a FileReader object connected to the File
+            transactionArrayList = new ArrayList<Transaction>();
+            String fileName = "src/main/resources/transactions.csv";
+            FileReader fileReader = new FileReader(fileName);
+            // create a BufferedReader to manage input stream
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            String input;
+            // read until there is no more data
+            while ((input = bufReader.readLine()) != null) {
+                //2024-09-08\|08:16\|payment\|walmart\|13.0
+                String[] dateEntry = input.split("\\|");
+                LocalDate date = LocalDate.parse(dateEntry[0]);
+                LocalTime time = LocalTime.parse(dateEntry[1]);
+                String description = dateEntry[2];
+                String vendor = dateEntry[3];
+                double amount = Double.parseDouble(dateEntry[4]);
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                transactionArrayList.add(transaction);
+
+
+            }
+            // close the stream and release the resources
+            bufReader.close();
+
+        } catch (IOException e) {
+            // display stack trace if there was an error
+            e.printStackTrace();
+        }
+        return transactionArrayList;
+    }
+
+    public static void allEntries(ArrayList<Transaction> transactionList){
+       for(var i = 0; i< transactionList.size(); i++){
+           System.out.println(transactionList.get(i).toString());
+       }
+
+    }
 
 //        } while (userInput.equals("X"));
 //    }
-
 
 
 //creating CLI financial transaction app to track all financial transactions
@@ -145,8 +209,8 @@ public class Capstone_1 {
     // prompt user for debit information
     // method makePayment
     //add formula to negate from account
-        // use file writer to write new payment on transaction file
-        //display the ledger screen: deposits, payments, reports
+    // use file writer to write new payment on transaction file
+    //display the ledger screen: deposits, payments, reports
     // ledger menu: a)all: display all transactions screen(newest first)
     //
 
