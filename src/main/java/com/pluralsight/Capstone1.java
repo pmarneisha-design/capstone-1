@@ -22,7 +22,7 @@ public class Capstone1 {
     public static void mainMenu() {
         // declares a variable to hold what the user types
         String userInput;
-// prints the home menu so the user can choose what they want to do
+        // prints the home menu so the user can choose what they want to do
         do {
             System.out.println("HOME SCREEN");
             System.out.println("D- Add Deposit");
@@ -56,7 +56,7 @@ public class Capstone1 {
         } while (!userInput.equals("X"));
     }
 
-    // starts new method that handles adding deposits
+        // starts new method that handles adding deposits
     private static void addDeposit() {
         // asks for date,get input, and converts to LocalDate type
         System.out.println("Enter transaction date: YYYY-MM-DD");
@@ -67,10 +67,10 @@ public class Capstone1 {
         System.out.println("Enter transaction time: HH:MM ");
         String timeString = scanner.nextLine();
         LocalTime time = LocalTime.parse(timeString);
-// ask what the transaction was for
+        // ask what the transaction was for
         System.out.println("Enter transaction description");
         String descriptionString = scanner.nextLine();
-// asks for the name of the vendor or source
+        // asks for the name of the vendor or source
         System.out.println("Enter vendor name");
         String vendorString = scanner.nextLine();
         // asks for the amount,reads it as a string, and converts it to a decimal
@@ -79,11 +79,11 @@ public class Capstone1 {
         double amount = Double.parseDouble(amountString);
 
 
-//date|time|description|vendor|amount
+        //date|time|description|vendor|amount
         String ledgerEntry = date + "|" + time + "|" + descriptionString + "|" + vendorString + "|" + amount;
         String fileName = "src/main/resources/transactions.csv";
 
-// fileWriter writes stream of characters to file
+        // fileWriter writes stream of characters to file
         // open files
         try (FileWriter fileWriter = new FileWriter(fileName, true)) {
             fileWriter.write(ledgerEntry + "\n");
@@ -94,20 +94,20 @@ public class Capstone1 {
         }
     }
 
-    // date, time, description, vendor, amount
+        // date, time, description, vendor, amount
     private static void makePayment() {
         // prompt user for date
         System.out.println("Enter transaction date: YYYY-MM-DD");
         String dateString = scanner.nextLine();
         LocalDate date = LocalDate.parse(dateString);
-// prompt user for time
+        // prompt user for time
         System.out.println("Enter transaction time: HH:MM ");
         String timeString = scanner.nextLine();
         LocalTime time = LocalTime.parse(timeString);
-// prompt user for description
+        // prompt user for description
         System.out.println("Enter transaction description");
         String descriptionString = scanner.nextLine();
-// prompts user for vendor name
+        // prompts user for vendor name
         System.out.println("Enter vendor name");
         String vendorString = scanner.nextLine();
         // prompts user to enter transaction amount
@@ -222,8 +222,8 @@ public class Capstone1 {
 
 
 
-//creating CLI financial transaction app to track all financial transactions
-// application must have several screens
+    //creating CLI financial transaction app to track all financial transactions
+    // application must have several screens
     //screens:
     // display home screen
     // home screen options: add deposit, make payment, ledger, exit
@@ -233,9 +233,9 @@ public class Capstone1 {
     // prompt user for debit information
     // method makePayment
     //add formula to negate from account
-    // use file writer to write new payment on transaction file
+    // use file writer to display new payment on transaction file
     //display the ledger screen: deposits, payments, reports
     // ledger menu: a)all: display all transactions screen(newest first)
-    //
+
 
 }
